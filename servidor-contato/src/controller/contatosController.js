@@ -5,23 +5,25 @@ const getAll = (request, response) => {
   response.status(200).send(model.agenda);
 };
 
-const getById = (request, response) => {
-  const id = request.params.id;
-  response.status(200).send(contatos.find(tarefa => tarefa.id == id));
-};
-
-
 const add = (request, response) => {
+ let contato = request.body;
+ let baseDados = model.agenda.contatos;
+ contato.id = Math.random().toString(36).substr(-8) //para gerar um numero "automatico" no ID
 
- model.agenda.contatos.push(request.body);
-response.status(200).send()
+ if (baseDados.find(dado => dado.nome === contato.nome)) {
+    response.status(400).send("Contato já cadastrado");
+ }
+else {
+  model.agenda.contatos.push(contato) //push é um método de uma array fornece um objeto que tem uma agenda dentro
+  response.status(200).send()
+
+}
 }
 
 
 
 module.exports = {
   getAll,
-  getById,
   add
 }
 
