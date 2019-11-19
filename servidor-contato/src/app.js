@@ -1,5 +1,8 @@
-const express = require("express")
+const express = require("express") // biblioteca por isso no require chamo apenas o express
 const app = express()
+
+const database = require('./model/database') // eh um documento e por isso coloco o nome da pasta, pq la na pasta model, vai ter o requerimento para o meu mongoose
+database.connect()
 
 //rotas
 const index = require("./routes/index")
