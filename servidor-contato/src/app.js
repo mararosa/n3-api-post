@@ -1,5 +1,6 @@
 const express = require("express") // biblioteca por isso no require chamo apenas o express
 const app = express()
+const bodyParser = require("body-parser")
 
 const database = require('./model/database') // eh um documento e por isso coloco o nome da pasta, pq la na pasta model, vai ter o requerimento para o meu mongoose
 database.connect()
@@ -16,6 +17,8 @@ app.use(function (request, response, next) {
   )
   next()
 })
+
+app.use(bodyParser.json()) //middleware
 
 app.use("/", index)
 app.use("/contatos", contatos)

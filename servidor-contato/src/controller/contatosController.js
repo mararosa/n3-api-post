@@ -90,12 +90,31 @@ const deleteById = (request, response) => {
   })
 }
 
+const patchById = (request, response) => {
+  const idParam = request.params.id
+  const contatoDoBody = request.body
+  const options = {new: true }
+
+  contatosCollection.findByIdAndUpdate(idParam, contatoDoBody, options, (error, contato) => { //alterar nossa collection
+    if(error) {
+      return  response.status(500).send(error)
+    } else {
+      if (contato) {
+      return response.status(200).send(contato)
+      } else {
+        return response.sendStatus(404)
+      }
+    }
+  })
+}
+
 
 module.exports = {
   getAll,
   add,
   getByName,
   getById,
-  deleteById
+  deleteById,
+  patchById
 }
 
